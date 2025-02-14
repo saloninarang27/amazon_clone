@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react"; 
+import { useState, useEffect } from "react";
 import "./index.css";
 import Logo from "./logo.png";
 import s1 from "./Scroll1.png";
@@ -41,6 +41,16 @@ import "./Home.css";
 
 function Home() {
 
+  useEffect(() => {
+    const handleResize = () => {
+        if (window.innerWidth >= 1024) {
+            setMenuOpen(false);
+        }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+}, []);
+
   const [menuOpen, setMenuOpen] = useState(false); 
 
   const scrollLeft = (id) => {
@@ -57,75 +67,80 @@ function Home() {
   
   return (
     <>
-     <header className="bg-gray-900 text-white py-2 px-6 flex items-center justify-between">
-      {/* Left Section - Logo & Location */}
-      <div className="flex items-center">
-        <a href="/" className="flex items-center">
-          <img src={Logo} alt="Amazon Logo" className="h-8 w-auto mr-2" />
-          <span className="text-xl font-bold">amazon.in</span>
-        </a>
-        <div className="hidden md:flex ml-6 items-center text-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="white">
-            <path d="M10 2a6 6 0 00-6 6c0 3.314 6 10 6 10s6-6.686 6-10a6 6 0 00-6-6zM8 10a2 2 0 114 0 2 2 0 01-4 0z" />
-          </svg>
-          <span>Deliver to India</span>
-        </div>
-      </div>
+     <header className="bg-gray-900 text-white py-2 px-6 flex items-center justify-between relative">
+            {/* Left Section - Logo & Location */}
+            <div className="flex items-center">
+                <a href="/" className="flex items-center">
+                    <img src={Logo} alt="Amazon Logo" className="h-8 w-auto mr-2" />
+                    <span className="text-xl font-bold">amazon.in</span>
+                </a>
+                <div className="hidden md:flex ml-6 items-center text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="white">
+                        <path d="M10 2a6 6 0 00-6 6c0 3.314 6 10 6 10s6-6.686 6-10a6 6 0 00-6-6zM8 10a2 2 0 114 0 2 2 0 01-4 0z" />
+                    </svg>
+                    <span>Deliver to India</span>
+                </div>
+            </div>
 
-      {/* Middle Section - Search Bar */}
-      <div className="relative flex-grow max-w-2xl mx-6">
-        <div className="flex">
-          <select className="px-3 py-2 text-sm bg-gray-300 rounded-l-md">
-            <option value="all">All</option>
-          </select>
-          <input
-            type="text"
-            placeholder="Search Amazon"
-            className="w-full px-3 py-2 text-black rounded-r-md focus:outline-none"
-          />
-          <button className="absolute right-0 top-0 h-full px-3 bg-yellow-500 hover:bg-yellow-600">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-              <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
-            </svg>
-          </button>
-        </div>
-      </div>
+            {/* Middle Section - Search Bar */}
+            <div className="hidden md:flex relative flex-grow max-w-2xl mx-6">
+                <div className="flex w-full">
+                    <select className="px-3 py-2 text-sm bg-gray-300 rounded-l-md">
+                        <option value="all">All</option>
+                    </select>
+                    <input
+                        type="text"
+                        placeholder="Search Amazon"
+                        className="w-full px-3 py-2 text-black rounded-r-md focus:outline-none"
+                    />
+                    <button className="absolute right-0 top-0 h-full px-3 bg-yellow-500 hover:bg-yellow-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
+                            <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
 
-      {/* Right Section - Desktop Links */}
-      <div className="hidden md:flex items-center space-x-6 text-sm">
-        <a href="#" className="hover:underline">English</a>
-        <a href="#" className="hover:underline">Account & Lists</a>
-        <a href="#" className="hover:underline">Returns & Orders</a>
-        <a href="#" className="flex items-center hover:underline">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="white">
-            <path d="M3 1a1 1 0 000 1h1.22l.305 1.222A2 2 0 015.48 5h9.04a2 2 0 011.953 1.511l.957 4.785a1 1 0 01-1.342.887H6.053a1 1 0 01-.998-.887L4.98 3.217A1 1 0 004 2H1a1 1 0 00-1 1zM4 19a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z" />
-          </svg>
-          Cart (0)
-        </a>
-      </div>
+            {/* Right Section - Desktop Links */}
+            <div className="hidden md:flex items-center space-x-6 text-sm">
+                <a href="#" className="hover:underline">English</a>
+                <a href="#" className="hover:underline">Account & Lists</a>
+                <a href="#" className="hover:underline">Returns & Orders</a>
+                <a href="#" className="flex items-center hover:underline">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="white">
+                        <path d="M3 1a1 1 0 000 1h1.22l.305 1.222A2 2 0 015.48 5h9.04a2 2 0 011.953 1.511l.957 4.785a1 1 0 01-1.342.887H6.053a1 1 0 01-.998-.887L4.98 3.217A1 1 0 004 2H1a1 1 0 00-1 1zM4 19a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z" />
+                    </svg>
+                    Cart (0)
+                </a>
+            </div>
 
-      {/* Mobile Menu Button */}
-      <button className="md:hidden p-2 focus:outline-none" onClick={() => setMenuOpen(!menuOpen)}>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="white" viewBox="0 0 24 24">
-          <path d="M3 6h18M3 12h18m-18 6h18" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        </svg>
-      </button>
+            {/* Mobile Menu Button */}
+            <button className="md:hidden p-2 focus:outline-none" onClick={() => setMenuOpen(!menuOpen)}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="white" viewBox="0 0 24 24">
+                    <path d="M3 6h18M3 12h18m-18 6h18" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+            </button>
 
-      {/* Mobile Menu Dropdown */}
-      {menuOpen && (
-        <div className="absolute top-16 right-4 w-48 bg-gray-800 text-white p-4 rounded-lg shadow-lg md:hidden">
-          <a href="#" className="block py-2 px-3 hover:bg-gray-700 rounded">English</a>
-          <a href="#" className="block py-2 px-3 hover:bg-gray-700 rounded">Account & Lists</a>
-          <a href="#" className="block py-2 px-3 hover:bg-gray-700 rounded">Returns & Orders</a>
-          <a href="#" className="block py-2 px-3 hover:bg-gray-700 rounded flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="white">
-              <path d="M3 1a1 1 0 000 1h1.22l.305 1.222A2 2 0 015.48 5h9.04a2 2 0 011.953 1.511l.957 4.785a1 1 0 01-1.342.887H6.053a1 1 0 01-.998-.887L4.98 3.217A1 1 0 004 2H1a1 1 0 00-1 1zM4 19a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z" />
-            </svg>
-            Cart (0)
-          </a>
-        </div>
-      )}
-    </header>
+            {/* Mobile Sidebar */}
+            {menuOpen && (
+                <div className="fixed top-0 right-0 w-1/2 h-full bg-gray-800 text-white p-4 shadow-lg z-50 flex flex-col space-y-4">
+                    <button className="self-end text-xl" onClick={() => setMenuOpen(false)}>×</button>
+                    <a href="#" className="block py-2 px-3 hover:bg-gray-700 rounded">English</a>
+                    <a href="#" className="block py-2 px-3 hover:bg-gray-700 rounded">Account & Lists</a>
+                    <a href="#" className="block py-2 px-3 hover:bg-gray-700 rounded">Returns & Orders</a>
+                    <a href="#" className="block py-2 px-3 hover:bg-gray-700 rounded flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="white">
+                            <path d="M3 1a1 1 0 000 1h1.22l.305 1.222A2 2 0 015.48 5h9.04a2 2 0 011.953 1.511l.957 4.785a1 1 0 01-1.342.887H6.053a1 1 0 01-.998-.887L4.98 3.217A1 1 0 004 2H1a1 1 0 00-1 1zM4 19a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z" />
+                        </svg>
+                        Cart (0)
+                    </a>
+                    {/* Show Search Bar inside Sidebar if no space in header */}
+                    <div className="md:hidden">
+                        <input type="text" placeholder="Search Amazon" className="w-full px-3 py-2 text-black rounded-md focus:outline-none" />
+                    </div>
+                </div>
+            )}
+        </header>
 
       {/* Navigation Bar */}
 <nav className="bg-gray-800 text-white px-4 py-2 flex space-x-6 text-sm overflow-x-auto whitespace-nowrap">
