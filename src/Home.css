@@ -1,0 +1,44 @@
+.scroll-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* Hide overflow */
+}
+
+.scroll-content {
+  display: flex;
+  width: 1500px; /* Same width as images */
+  overflow: hidden; /* Hide extra images */
+  scroll-behavior: smooth;
+}
+
+.scroll-content img {
+  width: 200%; /* Make each image take full container width */
+  height: 100%;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 10;
+  border-radius: 50%;
+}
+
+.scroll-btn.left {
+  left: 0;
+}
+
+.scroll-btn.right {
+  right: 0;
+}
